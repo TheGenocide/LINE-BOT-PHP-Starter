@@ -1,6 +1,9 @@
 <?php
 	include_once "includes/v3_line_config.php";
 	
+	//Default Var
+	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . ACCESS_TOKEN);
+	
 	// Get POST body content
 	$content = file_get_contents('php://input');
 	// Parse JSON
@@ -14,28 +17,35 @@
 				$text = $event['message']['text']." User type : ".$event['source']['type']." And User id : ".$event['source']['userId'];			// Get replyToken			
 				$replyToken = $event['replyToken'];			// Build message to reply back			
 				$messages = ['type' => 'text','text' => $text];			// Make a POST Request to Messaging API to reply to sender		 	
-				$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-				$post = json_encode($data);			
-				$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . ACCESS_TOKEN);			
-				$ch = curl_init(URL_REPLY);			
-				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");			
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
-				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);			
-				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);			
-				$result = curl_exec($ch);			
-				curl_close($ch);			
-				echo $result . "";		
+				$data = ['replyToken' => $replyToken,'messages' => [$messages],];					
+				sendMessage($headers,"POST",1,'',$data);
 			}	
 		}
 	}
 	echo "BOT OK";
 	
-	function lineReply(){
-		//
-	}
-	
-	function linePush(){
-		//
+	function sendMessage($header,$method,$service,$userId,$data){
+		//$service:1 = reply
+		//$service:2 = push
+		$url = "";
+		$post = json_encode($data);
+		switch($service){
+			case 1:
+				$url = URL_REPLY;
+				break;
+			case 2:
+				$url = URL_PUSE;
+				break;
+		}
+		
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);			
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);			
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);			
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);			
+		$result = curl_exec($ch);			
+		curl_close($ch);			
+		echo $result . "";	
 	}
 ?>
