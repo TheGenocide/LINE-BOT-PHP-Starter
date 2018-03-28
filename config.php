@@ -8,7 +8,7 @@
 	define('URL_MULTICAST','https://api.line.me/v2/bot/message/multicast'); 
 	
 	// ปิดการแจ้ง error
-	//ini_set('display_errors', 1);
-	//ini_set('display_startup_errors', 1);
-	//error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
 ?>
