@@ -1,6 +1,6 @@
 <?php
 	include_once "includes/v3_line_config.php";
-	include_once "includes/core.php";
+	include_once "includes/v3_line_core.php";
 	
 	//Default Var
 	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . ACCESS_TOKEN);
