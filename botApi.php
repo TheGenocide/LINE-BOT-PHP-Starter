@@ -1,5 +1,5 @@
 <?php
-	include_once "config.php";
+	include_once "includes/v3_line_config.php";
 	
 	// Get POST body content
 	$content = file_get_contents('php://input');
@@ -29,5 +29,13 @@
 			}	
 		}
 	}
-	echo "OK";
+	echo "BOT OK";
+	
+	function lineReply(){
+		//
+	}
+	
+	function linePush(){
+		//
+	}
 ?>
