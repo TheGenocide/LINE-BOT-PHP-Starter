@@ -1,4 +1,5 @@
 <?php
+	ob_start();
 	include_once "includes/v3_line_config.php";
 	include_once "includes/v3_line_core.php";
 	
@@ -17,8 +18,8 @@
 			if ($event['type'] == 'message' && $event['message']['type'] == 'text') {	
 				// Get text sent		
 				$tmp = explode(" ",(trim($event['message']['text'])));
-				$cmd = strtolower($tmp[0]);
-				$val = $tmp[1];
+				$cmd = strtolower(trim($tmp[0]));
+				$val = trim($tmp[1]);
 				// Get replyToken
 				$replyToken = $event['replyToken'];
 				$text = "";
@@ -26,21 +27,21 @@
 					case "@help":
 						$text = "[system] คำสั่งที่สามารถใช้ได้มีดังนี้\n";
 						$text .= "1. @reg ชื่อยูสเซอร์ในระบบ TURAC เพื่อทำการลงทะเบียนครั้งแรกสำหรับเข้าใช้งานการแจ้งเตือนทาง Line\n";
-						$text .= "2. @rereg ชื่อยูสเซอร์ในระบบ TURAC เพื่อลงทะเบียนซ้ำอีกครั้งในกรณีที่เกินปัญหาไม่ได้รับข้อความจากระบบ\n";
-						$text .= "3. @unreg ชื่อยูสเซอร์ในระบบ TURAC เพื่อลบชื่อผู้ใช้นี้ออกจากระบบแจ้งเตือน\n";
+						$text .= "2. @unreg ชื่อยูสเซอร์ในระบบ TURAC เพื่อลบชื่อผู้ใช้นี้ออกจากระบบแจ้งเตือน\n";
+						$text .= "3. @check ตรวจสอบสถานะการลงทะเบียนเพื่อรับการแจ้งเตือนผ่าน Line\n";
 						$text .= "4. @userid เพื่อแสดง User id ของระบบ Line สำหรับนำไปลงทะเบียนด้วยตนเองผ่านทางสำนักวิจัย";
 						break;
 					case "@reg":
-						$text = "[system] ระบบทำการลงทะเบียนใช้งานสำเร็จ";
-						break;
-					case "@rereg":
-						$text = "[system] ระบบทำการลงทะเบียนใช้งานซ้ำอีกครั้งสำเร็จ";
+						$text = "[system] ระบบทำการลงทะเบียนยูสเซอร์ ".$val." เพื่อเข้าใช้งานระบบแจ้งเตือนสำเร็จ";
 						break;
 					case "@unreg":
 						$text = "[system] ได้ทำการลบ user นี้ออกจากระบบแล้ว";
 						break;
+					case "@check":
+						$text = "[system] ไม่พบยูสเซอร์นี้ในระบบโปรดทำการลงทะเบียนใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่สำนักวิจัย";
+						break;
 					case "@userid":
-						$text = "[system] user id ระบบไลน์ของท่านคือ ".$event['source']['userId'];
+						$text = "[system] User id ระบบไลน์ของท่านคือ ".$event['source']['userId'];
 						break;
 					default:
 						$text = "[system] ไม่พบคำสั่งนี้ในระบบโปรดพิมพ์ @help เพื่อรับข้อมูลเพิ่มเติม";
@@ -56,4 +57,5 @@
 		}
 	}
 	echo "BOT OK";
+	ob_end_flush();
 ?>
