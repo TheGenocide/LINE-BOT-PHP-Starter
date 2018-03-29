@@ -28,6 +28,8 @@
 				$userId = mysqli_real_escape_string($dbHandle,trim($event['source']['userId']));
 				$sql = "";
 				$sql2 = "";
+				$messages = "";
+				$data = "";
 				// Get replyToken
 				$replyToken = $event['replyToken'];
 				$text = "";
