@@ -99,7 +99,7 @@
 				$messages = ['type' => 'text','text' => $text];
 				// Make a POST Request to Messaging API to reply to sender		 	
 				$data = ['replyToken' => $replyToken,'messages' => [$messages],];			
-				sendMessage($headers,"POST",1,'',$data);
+				sendMessage($headers,"POST",1,$data);
 			}	
 		}
 	}

@@ -1,6 +1,6 @@
 <?php
 	//core function for send line with service reply and push
-	function sendMessage($header,$method,$service,$userId,$data){
+	function sendMessage($header,$method,$service,$data){
 		//$header = Content-Type: application/json', 'Authorization: Bearer [ACCESS_TOKEN]'
 		//$method = POST, GET
 		//$service:1 = reply, 2 = push
