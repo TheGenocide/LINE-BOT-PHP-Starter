@@ -42,12 +42,13 @@
 					case "@reg":
 						if($val <> ""){
 							//ตรวจสอบ Line id ซ้ำในระบบ
-							$sql = "SELECT * FROM ".My_config.".v3_userpriv WHERE sts <> '0' and line_id='$userId';";
+							$sql = "SELECT * FROM ".My_config.".v3_userpriv WHERE sts <> '0' and line_id='$userId' order by userprivid DESC limit 1;";
 							$conn->QuerySQL($sql);
 							if($conn->NumSQL()>0){
 								$text = "[system] ยูสเซอร์นี้ได้ลงทะเบียนในระบบแล้ว";
 							}else{
 								//ตรวจสอบ user ว่ามีในระบบ TURAC หรือไม่
+								$result = $conn->FetchSQL();
 								$sql = "SELECT * FROM ".My_config.".v3_userpriv WHERE sts <> '0' and Username='$val';";
 								$conn->QuerySQL($sql);
 								if($conn->NumSQL()<=0){
@@ -56,7 +57,7 @@
 									//บันทึก Line id เข้าสู่ระบบ TURAC
 									$sql2 = "UPDATE ".My_config.".v3_userpriv SET line_id='$userId' WHERE Username='$val' and sts <> '0' and workFlg = 'O' LIMIT 1;";
 									$conn->QuerySQL($sql2);
-									$text = "[system] ระบบทำการลงทะเบียนยูสเซอร์ ".$val." เพื่อเข้าใช้งานระบบแจ้งเตือนสำเร็จ";
+									$text = "[system] ระบบทำการลงทะเบียนยูสเซอร์ ".$result["Username"]." เพื่อเข้าใช้งานระบบแจ้งเตือนสำเร็จ";
 								}
 							}
 						}else{
@@ -77,10 +78,11 @@
 						break;
 					case "@check":
 						//ตรวจสอบ Line id มีในระบบหรือไม่
-						$sql = "SELECT * FROM ".My_config.".v3_userpriv WHERE sts <> '0' and line_id='$userId';";
+						$sql = "SELECT * FROM ".My_config.".v3_userpriv WHERE sts <> '0' and line_id='$userId' order by userprivid DESC limit 1;";
 						$conn->QuerySQL($sql);
 						if($conn->NumSQL()>0){
-							$text = "[system] ยูสเซอร์นี้ได้ลงทะเบียนในระบบแล้ว";
+							$result = $conn->FetchSQL();
+							$text = "[system] ยูสเซอร์ ".$result["Username"]." ได้ลงทะเบียนในระบบแล้ว";
 						}else{
 							$text = "[system] ไม่พบยูสเซอร์นี้ในระบบโปรดทำการลงทะเบียนใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่สำนักวิจัย";
 						}
