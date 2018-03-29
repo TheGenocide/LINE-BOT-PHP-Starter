@@ -1,5 +1,6 @@
 <?php
 	ob_start();
+	session_start();
 	include_once "modules/class.conn.php";
 	include_once "includes/v3_config.inc.php";
 	include_once "includes/v3_line_config.php";
