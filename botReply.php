@@ -50,10 +50,10 @@
 								$text = "[system] ยูสเซอร์นี้ได้ลงทะเบียนในระบบแล้ว";
 							}else{
 								//ตรวจสอบ user ว่ามีในระบบ TURAC หรือไม่
-								$sql = "SELECT * FROM ".My_config.".v3_userpriv WHERE sts <> '0' and Username='$val' order by userprivid DESC limit 1;";
+								$sql = "SELECT * FROM ".My_config.".v3_userpriv WHERE sts <> '0' and Username='$val' and line_id='' order by userprivid DESC limit 1;";
 								$conn->QuerySQL($sql);
-								if($conn->NumSQL()<=0){
-									$text = "[system] ไม่พบยูสเซอร์นี้ในระบบ TURAC โปรดลองใหม่อีกครั้งหรือติดต่อเจ้าหน้าที่สำนักวิจัย";
+								if($conn->NumSQL()==0){
+									$text = "[system] ไม่พบยูสเซอร์นี้ในระบบ TURAC หรือยูสเซอร์นี้มีการลงทะเบียนแล้วโปรดลองใหม่อีกครั้งหรือติดต่อเจ้าหน้าที่สำนักวิจัย";
 								}else{
 									//บันทึก Line id เข้าสู่ระบบ TURAC
 									$result = $conn->FetchSQL();
