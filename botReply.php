@@ -65,7 +65,6 @@
 		}
 	}
 	echo "BOT OK";
-	$text .= "database connect : ".$dbHandle."\n";
 	$conn->CloseSQL();
 	ob_end_flush();
 ?>
