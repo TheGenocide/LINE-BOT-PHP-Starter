@@ -2,7 +2,7 @@
 	define('DBBOT','43.229.77.123');
 	define('DBBOT_USER','testbot');
 	define('DBBOT_PW','wB65O1cZz9k6qF52');
-	define('My_db','test');
+	define('My_config','test');
 	
 	//connect sql server and header config
 	header('Content-Type: text/html; charset=utf-8');
