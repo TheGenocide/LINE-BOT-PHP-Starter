@@ -25,7 +25,7 @@
 				$tmp = explode(" ",(trim($event['message']['text'])));
 				$cmd = strtolower(trim($tmp[0]));
 				$val = mysqli_real_escape_string($dbHandle,trim($tmp[1]));
-				$userId = mysqli_real_escape_string($dbHandle,$event['source']['userId']);
+				$userId = mysqli_real_escape_string($dbHandle,trim($event['source']['userId']));
 				$sql = "";
 				$sql2 = "";
 				// Get replyToken
