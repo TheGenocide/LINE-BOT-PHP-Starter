@@ -5,6 +5,10 @@
 	include_once "includes/v3_line_config.php";
 	include_once "includes/v3_line_core.php";
 	
+	$conn = new DBConnect(DBBOT,DBBOT_USER,DBBOT_PW,My_db);
+	$dbHandle = $conn->DBhandle();//connect sql
+	//$conn->QuerySQL($sql);
+	
 	//Default Var
 	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . ACCESS_TOKEN);
 	
@@ -40,8 +44,9 @@
 						$text = "[system] ได้ทำการลบ user นี้ออกจากระบบแล้ว";
 						break;
 					case "@check":
-						$text = "[system] ไม่พบยูสเซอร์นี้ในระบบโปรดทำการลงทะเบียนใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่สำนักวิจัย";
-						$text .= " server ip : ".$_SERVER['SERVER_ADDR'];
+						$text = "[system] ไม่พบยูสเซอร์นี้ในระบบโปรดทำการลงทะเบียนใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่สำนักวิจัย\n";
+						$text .= "server ip : ".$_SERVER['SERVER_ADDR']."\n";
+						$text .= "database connect : ".$dbHandle."\n";
 						break;
 					case "@userid":
 						$text = "[system] User id ระบบ Line ของท่านคือ ".$event['source']['userId'];
@@ -60,5 +65,6 @@
 		}
 	}
 	echo "BOT OK";
+	$conn->CloseSQL();
 	ob_end_flush();
 ?>
