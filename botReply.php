@@ -41,7 +41,7 @@
 						$text = "[system] ไม่พบยูสเซอร์นี้ในระบบโปรดทำการลงทะเบียนใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่สำนักวิจัย";
 						break;
 					case "@userid":
-						$text = "[system] User id ระบบไลน์ของท่านคือ ".$event['source']['userId'];
+						$text = "[system] User id ระบบ Line ของท่านคือ ".$event['source']['userId'];
 						break;
 					default:
 						$text = "[system] ไม่พบคำสั่งนี้ในระบบโปรดพิมพ์ @help เพื่อรับข้อมูลเพิ่มเติม";
