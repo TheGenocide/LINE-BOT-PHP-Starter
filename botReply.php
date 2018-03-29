@@ -57,7 +57,7 @@
 								}else{
 									//บันทึก Line id เข้าสู่ระบบ TURAC
 									$result = $conn->FetchSQL();
-									$sql2 = "UPDATE ".My_config.".v3_userpriv SET line_id='$userId' WHERE Username='$val' and sts <> '0' and workFlg = 'O' LIMIT 1;";
+									$sql2 = "UPDATE ".My_config.".v3_userpriv SET line_id='$userId' WHERE Username='$val' and line_id='' and sts <> '0' and workFlg = 'O' LIMIT 1;";
 									$conn->QuerySQL($sql2);
 									$text = "[system] ระบบทำการลงทะเบียนยูสเซอร์ ".$result["Username"]." เพื่อเข้าใช้งานระบบแจ้งเตือนสำเร็จ";
 								}
