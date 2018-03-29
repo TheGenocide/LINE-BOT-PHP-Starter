@@ -13,7 +13,7 @@
 				$url = URL_REPLY;
 				break;
 			case 2:
-				$url = URL_PUSE;
+				$url = URL_PUSH;
 				break;
 		}
 		
