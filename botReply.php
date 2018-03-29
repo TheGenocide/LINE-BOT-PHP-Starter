@@ -1,5 +1,7 @@
 <?php
 	ob_start();
+	include_once "modules/class.conn.php.php";
+	include_once "includes/v3_config.inc.php";
 	include_once "includes/v3_line_config.php";
 	include_once "includes/v3_line_core.php";
 	
@@ -39,6 +41,7 @@
 						break;
 					case "@check":
 						$text = "[system] ไม่พบยูสเซอร์นี้ในระบบโปรดทำการลงทะเบียนใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่สำนักวิจัย";
+						$text .= " server ip : ".$_SERVER['SERVER_ADDR'];
 						break;
 					case "@userid":
 						$text = "[system] User id ระบบ Line ของท่านคือ ".$event['source']['userId'];
