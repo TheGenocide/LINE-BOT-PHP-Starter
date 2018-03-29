@@ -63,6 +63,7 @@
 							$data = ['to' => $result["line_id"],'messages' => [$messages],];	
 							sendMessage($headers,"POST",2,$data);	
 							$i++;
+							sleep(2);
 						}
 					}
 					return "ส่งสำเร็จ";
