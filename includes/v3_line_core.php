@@ -1,8 +1,11 @@
 <?php
 	//core function for send line with service reply and push
 	function sendMessage($header,$method,$service,$userId,$data){
-		//$service:1 = reply
-		//$service:2 = push
+		//$header = Content-Type: application/json', 'Authorization: Bearer [ACCESS_TOKEN]'
+		//$method = POST, GET
+		//$service:1 = reply, 2 = push
+		//$userId = user line ใช้ในกรณี push
+		//$data = ข้อมูลที่จะส่งออกไปรูปแบบ json
 		$url = "";
 		$post = json_encode($data);
 		switch($service){
