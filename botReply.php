@@ -7,7 +7,6 @@
 	
 	$conn = new DBConnect(DBBOT,DBBOT_USER,DBBOT_PW,My_db);
 	$dbHandle = $conn->DBhandle();//connect sql
-	//$conn->QuerySQL($sql);
 	
 	//Default Var
 	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . ACCESS_TOKEN);
@@ -26,6 +25,8 @@
 				$tmp = explode(" ",(trim($event['message']['text'])));
 				$cmd = strtolower(trim($tmp[0]));
 				$val = trim($tmp[1]);
+				$userId = $event['source']['userId'];
+				$sql = "";
 				// Get replyToken
 				$replyToken = $event['replyToken'];
 				$text = "";
@@ -44,9 +45,13 @@
 						$text = "[system] ได้ทำการลบ user นี้ออกจากระบบแล้ว";
 						break;
 					case "@check":
-						$text = "[system] ไม่พบยูสเซอร์นี้ในระบบโปรดทำการลงทะเบียนใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่สำนักวิจัย\n";
-						$text .= "server ip : ".$_SERVER['SERVER_ADDR']."\n";
-						$text .= "database connect : ".$dbHandle."\n";
+						$sql = "SELECT * FROM ".My_db.".v3_userpriv WHERE sts <> '0' and workFlg = 'O' and line_id='$userId';";
+						$conn->QuerySQL($sql);
+						if($conn->NumSQL()>0){
+							$text = "[system] ยูสเซอร์นี้ได้ลงทะเบียนในระบบแล้ว\n";
+						}else{
+							$text = "[system] ไม่พบยูสเซอร์นี้ในระบบโปรดทำการลงทะเบียนใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่สำนักวิจัย\n";
+						}
 						break;
 					case "@userid":
 						$text = "[system] User id ระบบ Line ของท่านคือ ".$event['source']['userId'];
